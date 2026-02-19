@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boracay.PH | Explore Paradise</title>
+    <style>
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: #008080; /* Teal Theme */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            height: 80px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 28px 20px;
+            display: block;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #006666;
+        }
+
+        /* Dropdown Styling */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 240px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            top: 100%;
+            left: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f9f9f9;
+            color: #008080;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            height: 3px;
+            width: 25px;
+            background: white;
+            margin: 2px 0;
+            border-radius: 2px;
+        }
+
+        /* Hero Image */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: clamp(2rem, 8vw, 4rem);
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* Content Grid */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        article {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        article:hover {
+            transform: translateY(-10px);
+        }
+
+        article img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 5px solid #008080;
+            background-color: #ddd; 
+        }
+
+        .article-body {
+            padding: 30px;
+        }
+
+        .article-body h2 {
+            margin-bottom: 15px;
+            color: #008080;
+        }
+
+        /* Island Guide Section */
+        #island-guide {
+            background-color: white;
+            padding: 80px 8%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+        }
+
+        #island-guide h2 {
+            color: #008080;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .guide-item {
+            padding: 20px;
+            border-left: 4px solid #008080;
+            background: #f9fdfd;
+        }
+
+        .guide-item h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Contact Section */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 20px;
+            color: #008080;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #008080;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                background: #006666;
+            }
+            
+            .dropdown-content a {
+                color: white;
+                padding-left: 40px;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <nav>
+        <div class="logo">BORACAY.PH</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="#top">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Destinations ▾</a>
+                <div class="dropdown-content">
+                    <a href="#white-beach">White Beach</a>
+                    <a href="#puka-beach">Puka Shell Beach</a>
+                    <a href="#bulabog">Bulabog (Kitesurfing)</a>
+                </div>
+            </li>
+            <li><a href="#island-guide">Island Guide</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Discover Paradise</h1>
+    </header>
+
+    <div class="container">
+        <div class="article-grid" style="margin-bottom: 80px;">
+            <article id="white-beach">
+                <img src="https://www.shoreexcursions.asia/wp-content/uploads/2017/06/Boracay-White-Beach.jpg" alt="White Beach Boracay">
+                <div class="article-body">
+                    <h2>The Iconic White Beach</h2>
+                    <p>Boracay’s crown jewel, White Beach, is world-renowned for its 4km stretch of fine, powdery sand that remains cool even under the midday sun. It is the center of the island’s dining and social scene.</p>
+                </div>
+            </article>
+
+            <article id="puka-beach">
+                <img src="https://cdn.forevervacation.com/uploads/attraction/puka-shell-beach-3370.webp" alt="Puka Beach Boracay">
+                <div class="article-body">
+                    <h2>Rustic Puka Shell Beach</h2>
+                    <p>Located on the northern tip of the island, Puka Beach offers a more rugged, natural experience. The sand here is mixed with small puka shells, and the waters are a deep, brilliant turquoise.</p>
+                </div>
+            </article>
+
+            <article id="bulabog">
+                <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=800&q=80" alt="Bulabog Beach">
+                <div class="article-body">
+                    <h2>Bulabog Adventure</h2>
+                    <p>The eastern side of the island is the kitesurfing hub of Asia. Bulabog Beach provides the perfect wind conditions for water sports enthusiasts looking for an adrenaline rush.</p>
+                </div>
+            </article>
+        </div>
+
+        <section id="island-guide">
+            <h2>Island Guide & Tips</h2>
+            <div class="guide-grid">
+                <div class="guide-item">
+                    <h3>Best Time to Visit</h3>
+                    <p>The dry season (Amihan) from November to April offers the calmest waters and clearest skies.</p>
+                </div>
+                <div class="guide-item">
+                    <h3>Getting Around</h3>
+                    <p>Electric trikes are the primary mode of transport. You can also rent bicycles or walk along the beach path.</p>
+                </div>
+                <div class="guide-item">
+                    <h3>Island Rules</h3>
+                    <p>Help preserve paradise: No smoking or drinking on the beach, and avoid using single-use plastics.</p>
+                </div>
+                <div class="guide-item">
+                    <h3>Currency</h3>
+                    <p>Philippine Peso (PHP) is the local currency. ATMs are widely available in D'Mall and major stations.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="contact">
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+            <p>Email: info@boracay.ph</p>
+            <p>Phone: +63 123 456 7890</p>
+            <p>Address: Malay, Aklan, Philippines</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">&copy; 2026 Boracay Travel Guide. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
